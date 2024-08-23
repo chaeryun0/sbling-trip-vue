@@ -1,10 +1,15 @@
 <template>
   <main>
+    <!-- 숙소 리스트 섹션 -->
+    <StayList
+      :stays="stays"
+    /> 
   </main>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import StayList from '@components/StayList.vue'
 import http from '@utils/http.js'
 
 const stays = ref([])
