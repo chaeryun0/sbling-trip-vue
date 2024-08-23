@@ -1,32 +1,29 @@
 <template>
   <main>
-    <!-- 숙소 리스트 섹션 -->
-    <StayList
-      :stays="stays"
-    /> 
+    <StayList :stays="stayStore.stays" />
   </main>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
+import { useScroll } from '@vueuse/core'
 import StayList from '@components/StayList.vue'
-import http from '@utils/http.js'
+import { useStayStore } from '@stores/stayStore'
 
-const stays = ref([])
-const currentPage = ref(0)
+const stayStore = useStayStore()
 
-const getStays = async () => {
-  try {
-    const response = await http.get(`/stay/list?cursor=${currentPage.value}`)
-    stays.value = response.data.result
-    console.log('response.data.result', response.data.result)
-  } catch (error) {
-    console.error('숙소 데이터를 가져오는 중 에러 발생:', error)
+// 스크롤 위치 추적
+const { y } = useScroll(window)
+
+// 스크롤이 최하단에 도달했을 때 다음 데이터를 로드
+watch(y, (scrollY) => {
+  if (scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
+    stayStore.loadMoreStays()
   }
-}
+})
 
 onMounted(() => {
-  getStays()
+  stayStore.getStays()
 })
 </script>
 

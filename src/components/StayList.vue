@@ -10,7 +10,7 @@
 <script setup>
 import { defineProps } from 'vue'
 import StayItem from './StayItem.vue'
-import Title from './shared/Title.vue';
+import Title from './shared/Title.vue'
 
 const props = defineProps({
   stays: {
@@ -21,17 +21,15 @@ const props = defineProps({
 </script>
 
 <style scoped lang="scss">
-@import 'src/styles/mixins';
+.stay-list-comp {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
 
-  .stay-list-comp {
-    margin: 0 auto;
-    width: 100%;
-    max-width: 1200px;
-  
-    ul {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-    }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
+}
 </style>
