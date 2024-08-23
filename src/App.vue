@@ -1,11 +1,10 @@
 <template>
   <div>
-    <Main />
+    <router-view></router-view>
   </div>
 </template>
 
 <script setup>
-import Main from './pages/Main.vue';
 </script>
 
 <style scoped></style>
