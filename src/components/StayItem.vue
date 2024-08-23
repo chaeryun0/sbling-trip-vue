@@ -1,30 +1,41 @@
 <template>
   <li class="stay-item-comp">
-    <div class="left-content">
-      <img :src="props.stay.roomImageUrlList[0]" :alt="`${props.stay.stayName} 이미지`" />
-      <div class="wish-btn">
-      </div>
-    </div>
-    <div class="right-content">
-      <div class="top">
-        <h3>{{ props.stay.stayName }}</h3>
-        <span class="address">{{ props.stay.address }}</span>
-        <div class="star-rating-wrapper">
-          <img class="star-icon" src="/public/assets/icon/icon-star.svg" alt="별점 아이콘">
-          <strong>{{ props.stay.reviewScoreAverage }}</strong>
-          <span>{{ `(${props.stay.reviewCount})` }}</span>
+    <ListRow :tagType="'div'" :class="'stay-item-inner'">
+      <template #leftContent>
+        <div class="left-content">
+          <img :src="props.stay.roomImageUrlList[0]" :alt="`${props.stay.stayName} 이미지`" />
+          <div class="wish-btn">
+            <IconButton :label="props.stay.wishState ? '찜 취소' : '찜하기'"
+              :iconSrc="props.stay.wishState ? '/public/assets/icon/icon-wish-fill.svg' : '/public/assets/icon/icon-wish.svg'"
+              @click="toggleWish" />
+          </div>
         </div>
-      </div>
-      <div class="bottom">
-        <strong class="price">{{ `${props.stay.minimumRoomPrice}원` }}</strong>
-        <span>/ 1박</span>
-      </div>
-    </div>
+      </template>
+      <template #rightContent>
+        <div class="right-content">
+          <div class="top">
+            <h3>{{ props.stay.stayName }}</h3>
+            <span class="address">{{ props.stay.address }}</span>
+            <div class="star-rating-wrapper">
+              <img class="star-icon" src="/public/assets/icon/icon-star.svg" alt="별점 아이콘">
+              <strong>{{ props.stay.reviewScoreAverage }}</strong>
+              <span>{{ `(${props.stay.reviewCount})` }}</span>
+            </div>
+          </div>
+          <div class="bottom">
+            <strong class="price">{{ `${props.stay.minimumRoomPrice}원` }}</strong>
+            <span>/ 1박</span>
+          </div>
+        </div>
+      </template>
+    </ListRow>
   </li>
 </template>
 
 <script setup>
 import { defineProps } from 'vue'
+import ListRow from './shared/ListRow.vue'
+import IconButton from './shared/IconButton.vue'
 
 const props = defineProps({
   stay: {
@@ -32,6 +43,10 @@ const props = defineProps({
     required: true,
   },
 })
+
+const toggleWish = () => {
+  props.stay.wishState = !props.stay.wishState
+}
 </script>
 
 <style scoped lang="scss">

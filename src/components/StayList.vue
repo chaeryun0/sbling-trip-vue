@@ -1,5 +1,6 @@
 <template>
   <div class="stay-list-comp">
+    <Title title="전체 숙소" />
     <ul>
       <StayItem v-for="stay in stays" :key="stay.staySeq" :stay="stay" />
     </ul>
@@ -9,6 +10,7 @@
 <script setup>
 import { defineProps } from 'vue'
 import StayItem from './StayItem.vue'
+import Title from './shared/Title.vue';
 
 const props = defineProps({
   stays: {
