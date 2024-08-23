@@ -1,13 +1,11 @@
-<script setup>
-import StayList from '@components/StayList.vue'
-</script>
-
 <template>
   <div>
-    <StayList  />
+    <Main />
   </div>
 </template>
 
-<style scoped>
+<script setup>
+import Main from './pages/Main.vue';
+</script>
 
-</style>
+<style scoped></style>
