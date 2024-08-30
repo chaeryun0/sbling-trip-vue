@@ -47,10 +47,17 @@ import { useRoute, RouterLink } from 'vue-router';
 
 const route = useRoute();
 
+/** 
+ * 현재 페이지가 로그인 또는 회원가입 페이지인지 여부를 반환하는 계산된 속성
+ * @returns {Boolean} - 로그인 또는 회원가입 페이지라면 true, 그렇지 않으면 false
+ */
 const isLoginOrSignupPage = computed(() =>
   ['/login', '/signup'].includes(route.path)
 );
 
+/** 
+ * 페이지 최상단으로 스크롤하는 함수
+ */
 const scrollToTop = () => {
   window.scrollTo({
     top: 0,

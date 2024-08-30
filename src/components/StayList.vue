@@ -13,6 +13,10 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import StayItem from './StayItem.vue'
 import Title from './shared/Title.vue'
 
+/**
+ * StayList 컴포넌트 Props 정의
+ * @property {Array} stays - 렌더링할 숙소 목록
+ */
 const props = defineProps({
   stays: {
     type: Array,
@@ -20,11 +24,14 @@ const props = defineProps({
   }
 })
 
-const loadMoreTrigger = ref(null)
-const observer = ref(null)
+const loadMoreTrigger = ref(null);  // loadMoreTrigger 엘리먼트를 참조하기 위한 ref
+const observer = ref(null);  // IntersectionObserver 객체를 참조하기 위한 ref
 
 const emit = defineEmits(['load-more'])
 
+/** 
+ * IntersectionObserver를 설정하여 무한 스크롤을 구현하는 함수
+ */
 const setupIntersectionObserver = () => {
   observer.value = new IntersectionObserver((entries) => {
     const target = entries[0]
@@ -41,10 +48,16 @@ const setupIntersectionObserver = () => {
   }
 }
 
+/** 
+ * 컴포넌트가 마운트될 때 IntersectionObserver를 설정
+ */
 onMounted(() => {
   setupIntersectionObserver()
 })
 
+/** 
+ * 컴포넌트가 언마운트될 때 IntersectionObserver를 해제
+ */
 onUnmounted(() => {
   if (observer.value && loadMoreTrigger.value) {
     observer.value.unobserve(loadMoreTrigger.value)

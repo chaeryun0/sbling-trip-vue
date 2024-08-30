@@ -28,6 +28,23 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/effect-fade'
 
+/**
+ * Carousel 컴포넌트 Props 정의
+ * @property {Array} images - 슬라이드에 표시될 이미지 배열
+ * @property {Number} spaceBetween - 슬라이드 간의 간격
+ * @property {Boolean} rewind - 슬라이드 끝에서 다시 시작할지 여부
+ * @property {Boolean} mousewheel - 마우스 휠로 슬라이드 제어 가능 여부
+ * @property {Boolean} navigation - 내비게이션 버튼 활성화 여부
+ * @property {Object} pagination - 페이지네이션 설정
+ * @property {Boolean} autoplay - 자동 재생 활성화 여부
+ * @property {Number} autoplayDelay - 자동 재생 지연 시간
+ * @property {String} effect - 슬라이드 효과 타입
+ * @property {Object} fadeEffect - 페이드 효과 설정
+ * @property {Object} breakpoints - 슬라이드 반응형 설정
+ * @property {String} className - 사용자 정의 클래스
+ * @property {Function} onSlideChange - 슬라이드 변경 시 호출되는 함수
+ * @property {Function} onPaginationChange - 페이지네이션 변경 시 호출되는 함수
+ */
 const props = defineProps({
   images: {
     type: Array,
@@ -83,6 +100,10 @@ const props = defineProps({
 
 const emit = defineEmits(['slideChange', 'paginationChange']);
 
+/** 
+ * 슬라이드 변경 시 호출되는 함수
+ * @param {Object} swiper - Swiper 인스턴스
+ */
 const handleSlideChange = (swiper) => {
   if (props.onSlideChange) {
     props.onSlideChange(swiper);
@@ -92,6 +113,10 @@ const handleSlideChange = (swiper) => {
   }
 };
 
+/** 
+ * 자동 재생 설정 객체
+ * @returns {Object|Boolean} - 자동 재생 설정을 반환하거나 false를 반환
+ */
 const autoplayConfig = props.autoplay
   ? {
       delay: props.autoplayDelay,

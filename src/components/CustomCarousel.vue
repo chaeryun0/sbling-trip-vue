@@ -27,6 +27,12 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/effect-fade'
 
+/**
+ * CustomCarousel 컴포넌트 Props 정의
+ * @property {Array} items - 캐러셀에 표시될 아이템 배열
+ * @property {Number} spaceBetween - 슬라이드 간의 간격
+ * @property {String} className - 사용자 정의 클래스
+ */
 const props = defineProps({
   items: {
     type: Array,
@@ -42,6 +48,10 @@ const props = defineProps({
   },
 });
 
+/** 
+ * 반응형 설정: 화면 크기에 따라 슬라이드 개수 조절
+ * @constant {Object} breakpoints 
+ */
 const breakpoints = {
   1: {
     slidesPerView: 2,

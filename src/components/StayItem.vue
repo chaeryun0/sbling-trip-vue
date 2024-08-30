@@ -25,6 +25,10 @@ import ListRow from './shared/ListRow.vue'
 import IconButton from './shared/IconButton.vue'
 import StayItemContents from './shared/StayItemContents.vue';
 
+/**
+ * StayItem 컴포넌트 Props 정의
+ * @property {Object} stay - 숙소 정보 객체
+ */
 const props = defineProps({
   stay: {
     type: Object,
@@ -32,6 +36,9 @@ const props = defineProps({
   },
 })
 
+/** 
+ * 찜하기 상태를 토글하는 함수
+ */
 const toggleWish = () => {
   props.stay.wishState = !props.stay.wishState
 }

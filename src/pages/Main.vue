@@ -40,6 +40,11 @@ import StayItemContents from '@components/shared/StayItemContents.vue';
 import { StayType } from '@utils/stayTypes';
 import { useStayStore } from '@stores/stayStore';
 
+
+/**
+ * 메인 배너 이미지 배열
+ * @constant {Array} mainBannerImages
+ */
 const mainBannerImages = [
   '/assets/banner_1.png',
   '/assets/banner_2.png',
@@ -47,27 +52,39 @@ const mainBannerImages = [
   '/assets/banner_4.png',
 ];
 
+/** 숙소 스토어 인스턴스 가져오기 */
 const stayStore = useStayStore()
+
+/** 현재 활성화된 탭을 지정하는 ref */
 const activeTab = ref(StayType.Hotel)
+
+/** 선택된 숙소 리스트를 담는 ref */
 const selectedStays = ref([])
 
+/**
+ * 탭 클릭 시 호출되는 함수
+ * @param {Number} type - 클릭된 탭의 타입 ID
+ */
 const handleTabClick = async (type) => {
   activeTab.value = type;
   await stayStore.handleStayTypeChange(type);
 
-  selectedStays.value = (stayStore.staysByType[type]).map(stay => ({
-    imageUrl: stay.roomImageUrlList[0],
-    staySeq: stay.staySeq,
-    contents: markRaw(StayItemContents),
-    props: { stay },  
+  // 선택된 숙소 리스트를 갱신
+  selectedStays.value = (stayStore.staysByType[type] || []).map(stay => ({
+    imageUrl: stay.roomImageUrlList[0],  // 이미지 URL
+    staySeq: stay.staySeq,  // 숙소 고유 번호
+    contents: markRaw(StayItemContents),  // 렌더링할 컴포넌트
+    props: { stay },  // 컴포넌트에 전달할 데이터
   }));
 }
 
+/** 컴포넌트가 마운트될 때 초기 데이터 가져오기 */
 onMounted(() => {
   stayStore.getStays()
   handleTabClick(activeTab.value);
 })
 
+/** 추가 데이터 로드하는 함수 */
 const loadMoreStays = () => {
   stayStore.loadMoreStays()
 }

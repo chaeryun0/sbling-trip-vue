@@ -17,8 +17,16 @@
 import StayTypeItem from './StayTypeItem.vue';
 import { StayType, labels }  from '@utils/stayTypes'
 
+/** 
+ * 컴포넌트에 사용될 숙소 타입 배열 정의
+ * @constant {Array} orderedStayTypes
+ */
 const orderedStayTypes = ['Hotel', 'Motel', 'Pension', 'GuestHouse'];
 
+/**
+ * StayTypeMenu 컴포넌트 Props 정의
+ * @property {Number} activeTab - 현재 활성화된 탭의 타입 ID
+ */
 const props = defineProps({
   activeTab: {
     type: Number,
@@ -26,8 +34,15 @@ const props = defineProps({
   },
 });
 
+/**
+ * handle-tab-click 이벤트를 부모 컴포넌트로 emit
+ */
 const emit = defineEmits(['handle-tab-click']);
 
+/**
+ * 탭 클릭 시 호출되는 함수
+ * @param {Number} type - 클릭된 탭의 타입 ID
+ */
 const handleTabClick = (type) => {
   emit('handle-tab-click', type);
 };

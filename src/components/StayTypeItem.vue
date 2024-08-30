@@ -11,6 +11,12 @@
 </template>
 
 <script setup>
+/**
+ * StayTypeItem 컴포넌트 Props 정의
+ * @property {Number} type - 숙소 타입 ID (ex: Hotel, Motel)
+ * @property {String} label - 숙소 타입을 나타내는 라벨
+ * @property {Boolean} active - 해당 탭이 활성화된 상태인지 여부
+ */
 const props = defineProps({
   type: {
     type: Number,
@@ -26,8 +32,14 @@ const props = defineProps({
   },
 });
 
+/**
+ * handle-tab-click 이벤트를 부모 컴포넌트로 emit
+ */
 const emit = defineEmits(['handle-tab-click']);
 
+/**
+ * handle-tab-click 이벤트를 부모 컴포넌트로 emit
+ */
 const handleClick = () => {
   emit('handle-tab-click', props.type);
 };
