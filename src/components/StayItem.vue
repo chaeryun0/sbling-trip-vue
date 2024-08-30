@@ -13,19 +13,7 @@
       </template>
       <template #rightContent>
         <div class="right-content">
-          <div class="top">
-            <h3>{{ props.stay.stayName }}</h3>
-            <span class="address">{{ props.stay.address }}</span>
-            <div class="star-rating-wrapper">
-              <img class="star-icon" src="/public/assets/icon/icon-star.svg" alt="별점 아이콘">
-              <strong>{{ props.stay.reviewScoreAverage }}</strong>
-              <span>{{ `(${props.stay.reviewCount})` }}</span>
-            </div>
-          </div>
-          <div class="bottom">
-            <strong class="price">{{ `${props.stay.minimumRoomPrice}원` }}</strong>
-            <span>/ 1박</span>
-          </div>
+          <StayItemContents :stay="props.stay" />
         </div>
       </template>
     </ListRow>
@@ -36,6 +24,7 @@
 import { defineProps } from 'vue'
 import ListRow from './shared/ListRow.vue'
 import IconButton from './shared/IconButton.vue'
+import StayItemContents from './shared/StayItemContents.vue';
 
 const props = defineProps({
   stay: {
@@ -107,69 +96,6 @@ const toggleWish = () => {
     gap: 15px;
     padding: 10px 5px;
     @include truncate;
-
-    .top {
-      width: calc(100% - 20%);
-      display: flex;
-      flex-direction: column;
-    }
-
-    h3 {
-      margin-bottom: 4px;
-      font-weight: 700;
-      @include t5;
-      color: var(--gray800);
-      @include truncate;
-    }
-
-    .address {
-      margin-bottom: 4px;
-      @include t8;
-      line-height: normal;
-      letter-spacing: -0.6px;
-      font-weight: 600;
-      color: var(--gray600);
-    }
-
-    .star-rating-wrapper {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-end;
-      gap: 3px;
-
-      .star-icon {
-        width: 20px;
-        height: 20px;
-      }
-
-      strong,
-      span {
-        font-weight: 700;
-        color: var(--gray800);
-        @include t7;
-      }
-    }
-
-    .bottom {
-      display: flex;
-      align-items: center;
-      height: 100%;
-
-      .price {
-        @include t5;
-        line-height: normal;
-        letter-spacing: 0px;
-        font-weight: 700;
-        color: var(--gray800);
-      }
-
-      span {
-        @include t7;
-        font-weight: 500;
-        padding-left: 8px;
-        color: var(--gray700);
-      }
-    }
   }
 }
 </style>
