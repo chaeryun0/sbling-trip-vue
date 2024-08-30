@@ -14,7 +14,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue';
 import StayTypeItem from './StayTypeItem.vue';
 import { StayType, labels }  from '@utils/stayTypes'
 

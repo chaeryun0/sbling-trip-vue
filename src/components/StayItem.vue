@@ -21,7 +21,6 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
 import ListRow from './shared/ListRow.vue'
 import IconButton from './shared/IconButton.vue'
 import StayItemContents from './shared/StayItemContents.vue';

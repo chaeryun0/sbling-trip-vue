@@ -17,7 +17,6 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
 import delimiter from '@utils/delimiter';
 
 const props = defineProps({
