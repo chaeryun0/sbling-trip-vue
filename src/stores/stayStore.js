@@ -8,14 +8,18 @@ export const useStayStore = defineStore("stayStore", () => {
   const stays = ref([]);
   const staysByType = ref({});
   const currentPage = ref(0);
+  const isMoreDataAvailable = ref(true); // 추가 데이터를 로드할 수 있는지 여부
 
   /**
    * 기본 숙소 리스트를 서버에서 가져오는 함수
    */
   const getStays = async () => {
+    if (!isMoreDataAvailable.value) return; // 더 이상 불러올 데이터가 없으면 함수를 종료
     try {
       const { data } = await http.get(`/stay/list?cursor=${currentPage.value}`);
-      if (currentPage.value === 0) {
+      if (data.result.length === 0) {
+        isMoreDataAvailable.value = false; // 더 이상 불러올 데이터가 없는 경우
+      } else if (currentPage.value === 0) {
         stays.value = formatStays(data.result);
       } else {
         stays.value = [...stays.value, ...formatStays(data.result)];
@@ -40,8 +44,11 @@ export const useStayStore = defineStore("stayStore", () => {
 
   /** 추가로 숙소 데이터를 로드하는 함수 */
   const loadMoreStays = () => {
-    currentPage.value += 1;
-    getStays();
+    if (isMoreDataAvailable.value) {
+      // isMoreDataAvailable가 true일 때만 추가 데이터 로드
+      currentPage.value += 1;
+      getStays();
+    }
   };
 
   /**
