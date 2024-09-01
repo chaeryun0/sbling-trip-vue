@@ -1,45 +1,13 @@
-import { ref } from 'vue';
-import { defineStore } from 'pinia';
-import http from '@utils/http';
+import { ref } from "vue";
+import { defineStore } from "pinia";
+import http from "@utils/http";
+import { formatStays } from "@utils/stayFormatters";
 
 /** 숙소 관련 상태 관리를 위한 스토어 */
-export const useStayStore = defineStore('stayStore', () => {
+export const useStayStore = defineStore("stayStore", () => {
   const stays = ref([]);
   const staysByType = ref({});
   const currentPage = ref(0);
-
-  /**
-   * 주소를 포맷팅하는 함수
-   * @param {String} address - 원본 주소
-   * @returns {String} 포맷팅된 주소
-   */
-  const formatLocation = (address) => {
-    const [province, city] = address.split(' ', 2);
-    const filteredProvince = province.slice(0, 2);
-    return `${filteredProvince} ∙ ${city}`;
-  };
-
-  /**
-   * 괄호를 제거하는 함수
-   * @param {String} str - 원본 문자열
-   * @returns {String} 괄호가 제거된 문자열
-   */
-  const removeParentheses = (str) =>
-    str?.replace(/\((.*?)\)/g, '').trim();
-
-  /**
-   * 숙소 리스트를 포맷팅하는 함수
-   * @param {Array} data - 원본 숙소 데이터 배열
-   * @returns {Array} 포맷팅된 숙소 데이터 배열
-   */
-  const formatStays = (data) =>
-    data.map((stay) => ({
-      ...stay,
-      stayName: removeParentheses(stay.stayName),
-      originalAddress: stay.address,
-      formattedAddress: formatLocation(stay.address),
-    })
-    );
 
   /**
    * 기본 숙소 리스트를 서버에서 가져오는 함수
@@ -53,7 +21,7 @@ export const useStayStore = defineStore('stayStore', () => {
         stays.value = [...stays.value, ...formatStays(data.result)];
       }
     } catch (error) {
-      console.error('숙소 데이터를 가져오는 중 에러 발생:', error);
+      console.error("숙소 데이터를 가져오는 중 에러 발생:", error);
     }
   };
 
@@ -66,7 +34,7 @@ export const useStayStore = defineStore('stayStore', () => {
       const { data } = await http.get(`/stay/list/recommend/review-rank?stayType=${type}`);
       staysByType.value[type] = formatStays(data.result);
     } catch (error) {
-      console.error('숙소 타입 별 데이터를 가져오는 중 에러 발생:', error);
+      console.error("숙소 타입 별 데이터를 가져오는 중 에러 발생:", error);
     }
   };
 
